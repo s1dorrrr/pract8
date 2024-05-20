@@ -3,15 +3,16 @@
 
 #include <iostream>
 #include <string>
+#include <regex>
 
 class Apartment {
 public:
     std::string ownerName;
     std::string address;
-    int roomCount;
+    int rooms;
     double area;
     int floor;
-    bool hasBalcony;
+    bool balcony;
 
     Apartment();
     void input();

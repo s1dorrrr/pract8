@@ -1,4 +1,5 @@
 #include "ApartmentManager.h"
+#include <limits>
 
 int ApartmentManager::findApartmentByOwnerFragment(const std::string& fragment) {
     std::vector<int> matches;
@@ -78,7 +79,7 @@ void ApartmentManager::searchApartments(const std::string& criteria, const std::
 
 void ApartmentManager::searchApartments(const std::string& criteria, int value) {
     for (const auto& apt : apartments) {
-        if (criteria == "rooms" && apt.roomCount == value) {
+        if (criteria == "rooms" && apt.rooms == value) {
             apt.display();
             std::cout << "--------------------\n";
         }

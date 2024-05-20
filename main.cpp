@@ -2,7 +2,6 @@
 #include "ApartmentManager.h"
 
 void displayMenu() {
-    setlocale(LC_ALL, "en_US.UTF-8");
     std::cout << "Menu:\n"
         << "1. Add an apartment\n"
         << "2. Edit an apartment\n"
@@ -22,8 +21,6 @@ void displaySearchMenu() {
 }
 
 int main() {
-    setlocale(LC_ALL, "en_US.UTF-8");
-
     ApartmentManager manager;
     int choice;
 
