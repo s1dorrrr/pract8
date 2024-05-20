@@ -12,14 +12,6 @@ void displayMenu() {
         << "Choose an action: ";
 }
 
-void displaySearchMenu() {
-    std::cout << "Search by:\n"
-        << "1. Owner name\n"
-        << "2. Address\n"
-        << "3. Number of rooms\n"
-        << "Choose a search criteria: ";
-}
-
 int main() {
     ApartmentManager manager;
     int choice;
@@ -27,6 +19,7 @@ int main() {
     do {
         displayMenu();
         std::cin >> choice;
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Очистка потока ввода после ввода числа
 
         switch (choice) {
         case 1:
@@ -39,31 +32,10 @@ int main() {
             manager.deleteApartment();
             break;
         case 4: {
-            displaySearchMenu();
-            int searchChoice;
-            std::cin >> searchChoice;
-            std::cin.ignore();
-            if (searchChoice == 1) {
-                std::string ownerFragment;
-                std::cout << "Enter owner name fragment: ";
-                std::getline(std::cin, ownerFragment);
-                manager.searchApartments("owner", ownerFragment);
-            }
-            else if (searchChoice == 2) {
-                std::string addressFragment;
-                std::cout << "Enter address fragment: ";
-                std::getline(std::cin, addressFragment);
-                manager.searchApartments("address", addressFragment);
-            }
-            else if (searchChoice == 3) {
-                int roomCount;
-                std::cout << "Enter number of rooms: ";
-                std::cin >> roomCount;
-                manager.searchApartments("rooms", roomCount);
-            }
-            else {
-                std::cout << "Invalid choice. Please try again.\n";
-            }
+            std::string criteria;
+            std::cout << "Enter search criteria (name, address, or number of rooms): ";
+            std::getline(std::cin, criteria);
+            manager.searchApartments(criteria);
             break;
         }
         case 5:

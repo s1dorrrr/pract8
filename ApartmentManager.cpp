@@ -1,10 +1,11 @@
 #include "ApartmentManager.h"
+#include <algorithm>
 #include <limits>
 
 int ApartmentManager::findApartmentByOwnerFragment(const std::string& fragment) {
     std::vector<int> matches;
     for (size_t i = 0; i < apartments.size(); ++i) {
-        if (apartments[i].ownerName.find(fragment) == 0) {
+        if (apartments[i].ownerName.find(fragment) != std::string::npos) {
             matches.push_back(i);
         }
     }
@@ -67,19 +68,18 @@ void ApartmentManager::deleteApartment() {
     }
 }
 
-void ApartmentManager::searchApartments(const std::string& criteria, const std::string& value) {
+void ApartmentManager::searchApartments(const std::string& criteria) {
+    std::string loweredCriteria = criteria;
+    std::transform(loweredCriteria.begin(), loweredCriteria.end(), loweredCriteria.begin(), ::tolower);
     for (const auto& apt : apartments) {
-        if ((criteria == "owner" && apt.ownerName.find(value) != std::string::npos) ||
-            (criteria == "address" && apt.address.find(value) != std::string::npos)) {
-            apt.display();
-            std::cout << "--------------------\n";
-        }
-    }
-}
+        std::string loweredOwnerName = apt.ownerName;
+        std::string loweredAddress = apt.address;
+        std::transform(loweredOwnerName.begin(), loweredOwnerName.end(), loweredOwnerName.begin(), ::tolower);
+        std::transform(loweredAddress.begin(), loweredAddress.end(), loweredAddress.begin(), ::tolower);
 
-void ApartmentManager::searchApartments(const std::string& criteria, int value) {
-    for (const auto& apt : apartments) {
-        if (criteria == "rooms" && apt.rooms == value) {
+        if (loweredOwnerName.find(loweredCriteria) != std::string::npos ||
+            loweredAddress.find(loweredCriteria) != std::string::npos ||
+            (criteria == std::to_string(apt.rooms))) {
             apt.display();
             std::cout << "--------------------\n";
         }

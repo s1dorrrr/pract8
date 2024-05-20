@@ -14,8 +14,7 @@ public:
     void addApartment();
     void editApartment();
     void deleteApartment();
-    void searchApartments(const std::string& criteria, const std::string& value);
-    void searchApartments(const std::string& criteria, int value);
+    void searchApartments(const std::string& criteria);
     void generateReport() const;
 };
 
